@@ -5,11 +5,16 @@ def connect_db(db_name="my_database.db"):
     return conn
 
 def create_table(conn):
-
+    """Create the inventory table if it doesn't exist."""
     with conn:
-        conn.execute(
-
-        )
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS inventory (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                product_name TEXT NOT NULL,
+                quantity INTEGER NOT NULL,
+                price REAL NOT NULL
+            );
+        """)
     print("Inventory table is ready.")
 
 def add_item(conn,product_name, quantity,price):
@@ -52,3 +57,8 @@ def get_inventory(conn):
     cursor = conn.cursor()
     cursor.execute("SELECT id, product_name, quantity, price FROM inventory")
     return cursor.fetchall()
+
+if __name__ == "__main__":
+    conn = connect_db()
+    create_table(conn)
+    print("Database setup complete.")
