@@ -15,6 +15,7 @@ tab_view, tab_add, tab_update, tab_delete = st.tabs([
 
 with tab_view:
     st.header("Inventory List")
+    st.write("Refresh after modifying items.")
     items = get_inventory(conn)
     if items:
         # Convert the list of items to a DataFrame with specified column names
